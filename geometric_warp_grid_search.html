@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Geometry-First Grid Search over Weak-Field Spacetime Warps</title>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #f6f7f8;
+      color: #1f252b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.58;
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 42px 22px 72px;
+      background: #ffffff;
+    }
+    h1, h2, h3 { line-height: 1.2; color: #111820; }
+    h1 { margin-bottom: 0.2rem; }
+    .meta { color: #52606d; margin-bottom: 2rem; }
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #d8dde3;
+      margin: 0.75rem 0 1.25rem;
+      background: #fff;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.88rem;
+    }
+    th, td {
+      border: 1px solid #d8dde3;
+      padding: 0.45rem 0.55rem;
+      vertical-align: top;
+    }
+    th { background: #eef2f5; text-align: left; }
+    .note { color: #46525f; }
+  </style>
+</head>
+<body>
+<main>
+<h1>Geometry-First Grid Search over Weak-Field Spacetime Warps</h1>
+<p class="meta"><strong>Author:</strong> J. R. Landers<br><strong>Date:</strong> May 2026</p>
+
+<h2>Abstract</h2>
+<p>This standalone report searches directly over weak-field spacetime warps rather than over named dark-matter or modified-gravity theories. It is a synthetic radial prototype for asking what kinds of metric perturbations reproduce a galaxy-like dynamical residual.</p>
+
+<h2>Conceptual Motivation</h2>
+\[
+g_{\mu\nu}^{\rm trial}
+=
+g_{\mu\nu}^{\rm bar}
++
+h_{\mu\nu}(\theta).
+\]
+<p>The experiment asks what geometric perturbations numerically generate the residual, and what effective physical structure those perturbations imply.</p>
+
+<h2>Weak-Field Metric Ansatz</h2>
+\[
+ds^2
+=
+-\left(1+\frac{2\Phi(r)}{c^2}\right)c^2dt^2
++
+\left(1-\frac{2\Psi(r)}{c^2}\right)
+\left(dr^2+r^2d\Omega^2\right).
+\]
+\[
+\Phi=\Phi_{\rm bar}+\delta\Phi,
+\qquad
+\Psi=\Psi_{\rm bar}+\delta\Psi.
+\]
+<p>Rotation probes \(d\Phi/dr\), while the toy lensing/slip proxy responds to \(\Phi+\Psi\).</p>
+
+<h2>Warp Search Space</h2>
+<p>The grid includes logarithmic, power-law, exponential, rational saturating, Gaussian bump, and nonnegative radial basis perturbations. Slip is parameterized as</p>
+\[
+\delta\Psi(r)=\eta(r;\lambda)\delta\Phi(r).
+\]
+
+<h2>Objective and Diagnostics</h2>
+\[
+\mathcal{J}(\theta)
+=
+\chi^2_{\rm rot}
++
+\lambda_1 S_{\rm smooth}
++
+\lambda_2 P_{\rm path}
++
+\lambda_3 P_{\rm weak}
++
+\lambda_4 C(\theta)
++
+\lambda_5 P_{\rm lens}.
+\]
+\[
+\rho_{\rm eff}(r)
+=
+\frac{1}{4\pi G r^2}
+\frac{d}{dr}
+\left[
+r^2\frac{d}{dr}\delta\Phi(r)
+\right].
+\]
+
+<h2>Results</h2>
+<p>The best-ranked trial is <strong>log_warp</strong> with slip mode <strong>no_slip</strong> and score <strong>4.7852</strong>.</p>
+
+<h3>Rotation and Residual Fit</h3>
+<img src="figures/warp_rotation_fit.png" alt="Warp rotation fit">
+<img src="figures/warp_residual_acceleration.png" alt="Warp residual acceleration">
+
+<h3>Metric Potentials and Slip</h3>
+<img src="figures/warp_potentials.png" alt="Warp potentials">
+<img src="figures/warp_lensing_proxy.png" alt="Warp lensing proxy">
+
+<h3>Effective Density Proxy</h3>
+<img src="figures/warp_effective_profiles.png" alt="Warp effective profiles">
+
+<h3>Parameter Regions</h3>
+<img src="figures/warp_log_parameter_heatmap.png" alt="Log warp heatmap">
+<img src="figures/warp_parameter_scatter.png" alt="Warp parameter scatter">
+<img src="figures/warp_family_scores.png" alt="Warp family scores">
+
+<h3>Basis Warp</h3>
+<img src="figures/warp_basis_components.png" alt="Warp basis components">
+
+<h3>Top-Ranked Candidates</h3>
+<table>
+<thead><tr>
+<th>family</th>
+<th>eta_mode</th>
+<th>total_score</th>
+<th>rotation_mse</th>
+<th>lensing_mse</th>
+<th>flatness_metric</th>
+<th>weak_field_max</th>
+<th>params</th>
+</tr></thead><tbody>
+<tr>
+<td>log_warp</td>
+<td>no_slip</td>
+<td>4.7852</td>
+<td>2.0763</td>
+<td>0.1180</td>
+<td>0.0117</td>
+<td>1.3904e-06</td>
+<td>{&quot;A&quot;: 54914.28571428571, &quot;r0&quot;: 13.407151859613021}</td>
+</tr>
+<tr>
+<td>log_warp</td>
+<td>no_slip</td>
+<td>4.7975</td>
+<td>1.9535</td>
+<td>0.1534</td>
+<td>0.0092</td>
+<td>1.3841e-06</td>
+<td>{&quot;A&quot;: 50800.0, &quot;r0&quot;: 11.723008346614838}</td>
+</tr>
+<tr>
+<td>log_warp</td>
+<td>no_slip</td>
+<td>4.8196</td>
+<td>1.7910</td>
+<td>0.2030</td>
+<td>0.0095</td>
+<td>1.4064e-06</td>
+<td>{&quot;A&quot;: 52171.428571428565, &quot;r0&quot;: 11.723008346614838}</td>
+</tr>
+<tr>
+<td>log_warp</td>
+<td>no_slip</td>
+<td>5.0265</td>
+<td>2.1502</td>
+<td>0.1543</td>
+<td>0.0120</td>
+<td>1.4111e-06</td>
+<td>{&quot;A&quot;: 56285.71428571428, &quot;r0&quot;: 13.407151859613021}</td>
+</tr>
+<tr>
+<td>log_warp</td>
+<td>no_slip</td>
+<td>5.0740</td>
+<td>1.9001</td>
+<td>0.2324</td>
+<td>0.0070</td>
+<td>1.3940e-06</td>
+<td>{&quot;A&quot;: 48057.142857142855, &quot;r0&quot;: 10.25041904006358}</td>
+</tr>
+<tr>
+<td>log_warp</td>
+<td>no_slip</td>
+<td>5.1222</td>
+<td>2.2003</td>
+<td>0.1694</td>
+<td>0.0114</td>
+<td>1.3696e-06</td>
+<td>{&quot;A&quot;: 53542.857142857145, &quot;r0&quot;: 13.407151859613021}</td>
+</tr>
+<tr>
+<td>log_warp</td>
+<td>no_slip</td>
+<td>5.2280</td>
+<td>2.5194</td>
+<td>0.1042</td>
+<td>0.0143</td>
+<td>1.3895e-06</td>
+<td>{&quot;A&quot;: 59028.57142857143, &quot;r0&quot;: 15.333241747510177}</td>
+</tr>
+<tr>
+<td>log_warp</td>
+<td>no_slip</td>
+<td>5.3743</td>
+<td>1.6432</td>
+<td>0.3786</td>
+<td>0.0073</td>
+<td>1.4178e-06</td>
+<td>{&quot;A&quot;: 49428.57142857143, &quot;r0&quot;: 10.25041904006358}</td>
+</tr>
+<tr>
+<td>log_warp</td>
+<td>no_slip</td>
+<td>5.4456</td>
+<td>2.3426</td>
+<td>0.2065</td>
+<td>0.0088</td>
+<td>1.3618e-06</td>
+<td>{&quot;A&quot;: 49428.57142857143, &quot;r0&quot;: 11.723008346614838}</td>
+</tr>
+<tr>
+<td>log_warp</td>
+<td>no_slip</td>
+<td>5.4704</td>
+<td>2.4739</td>
+<td>0.1809</td>
+<td>0.0140</td>
+<td>1.3703e-06</td>
+<td>{&quot;A&quot;: 57657.142857142855, &quot;r0&quot;: 15.333241747510177}</td>
+</tr>
+</tbody></table>
+
+<h3>Family Summary</h3>
+<table>
+<thead><tr>
+<th>family</th>
+<th>count</th>
+<th>best_total_score</th>
+<th>best_rotation_mse</th>
+<th>best_lensing_mse</th>
+<th>best_eta_mode</th>
+<th>best_flatness_metric</th>
+<th>best_weak_field_max</th>
+</tr></thead><tbody>
+<tr>
+<td>log_warp</td>
+<td>5040</td>
+<td>4.7852</td>
+<td>2.0763</td>
+<td>0.1180</td>
+<td>no_slip</td>
+<td>0.0117</td>
+<td>1.3904e-06</td>
+</tr>
+<tr>
+<td>exponential_saturating_warp</td>
+<td>640</td>
+<td>5.6135</td>
+<td>1.9764</td>
+<td>0.3727</td>
+<td>no_slip</td>
+<td>0.0040</td>
+<td>1.3517e-06</td>
+</tr>
+<tr>
+<td>rational_saturating_warp</td>
+<td>2560</td>
+<td>6.0670</td>
+<td>1.0534</td>
+<td>0.2698</td>
+<td>constant_low</td>
+<td>0.0149</td>
+<td>1.4592e-06</td>
+</tr>
+<tr>
+<td>power_law_warp</td>
+<td>6300</td>
+<td>11.6641</td>
+<td>6.2762</td>
+<td>0.3203</td>
+<td>no_slip</td>
+<td>0.0340</td>
+<td>1.3799e-06</td>
+</tr>
+<tr>
+<td>radial_basis_warp</td>
+<td>5</td>
+<td>60.6587</td>
+<td>0.7383</td>
+<td>0.1750</td>
+<td>no_slip</td>
+<td>0.0300</td>
+<td>1.3611e-06</td>
+</tr>
+<tr>
+<td>gaussian_bump_warp</td>
+<td>1680</td>
+<td>433.2462</td>
+<td>71.2617</td>
+<td>3.1297</td>
+<td>constant_high</td>
+<td>0.3062</td>
+<td>1.2917e-06</td>
+</tr>
+</tbody></table>
+
+<h3>Selected Basis Terms</h3>
+<table>
+<thead><tr>
+<th>center</th>
+<th>width</th>
+<th>weight</th>
+</tr></thead><tbody>
+<tr>
+<td>5.7778</td>
+<td>5.0000</td>
+<td>1.3374e+03</td>
+</tr>
+<tr>
+<td>9.5556</td>
+<td>5.0000</td>
+<td>1.9622e+03</td>
+</tr>
+<tr>
+<td>17.1111</td>
+<td>5.0000</td>
+<td>475.6548</td>
+</tr>
+<tr>
+<td>20.8889</td>
+<td>5.0000</td>
+<td>667.2866</td>
+</tr>
+<tr>
+<td>24.6667</td>
+<td>5.0000</td>
+<td>593.1088</td>
+</tr>
+<tr>
+<td>28.4444</td>
+<td>5.0000</td>
+<td>209.5958</td>
+</tr>
+<tr>
+<td>36.0000</td>
+<td>5.0000</td>
+<td>955.1286</td>
+</tr>
+</tbody></table>
+
+<h2>Interpretation</h2>
+<p>The successful warps are smooth and long-range. The flat target curve favors \(d\delta\Phi/dr\sim 1/r\), so the corresponding perturbation is approximately logarithmic over the outer radial range. Localized bumps and rapidly saturating perturbations generally struggle or become pathologic.</p>
+
+<h2>Limitations</h2>
+<p>This is a weak-field radial toy model with synthetic data. It is not a full Einstein-tensor calculation, not a real galaxy fit, and not proof of new physics. Coordinate and gauge issues are suppressed by the ansatz, and the lensing proxy is conceptual.</p>
+
+<h2>Most Promising Next Directions</h2>
+<ol>
+  <li>Fit real SPARC-like rotation curves.</li>
+  <li>Use disk geometry.</li>
+  <li>Compute full metric-perturbation curvature diagnostics.</li>
+  <li>Use automatic differentiation over the metric ansatz.</li>
+  <li>Use symbolic regression over warp functions.</li>
+  <li>Enforce covariant conservation.</li>
+  <li>Jointly fit rotation and lensing.</li>
+  <li>Classify learned warp families across galaxies.</li>
+</ol>
+
+<h2>Conclusion</h2>
+<p>The purpose is not to assume a named theory, but to numerically explore the space of possible weak-field geometric deformations and analyze which kinds of spacetime warps reproduce the observed residual dynamics.</p>
+
+<h2>References</h2>
+<ol>
+  <li>Rubin, V. C., Ford, W. K., Jr., and Thonnard, N. (1980). Extended rotation curves of spiral galaxies.</li>
+  <li>Lelli, F., McGaugh, S. S., and Schombert, J. M. (2016). SPARC database and disk-galaxy mass models.</li>
+  <li>McGaugh, S. S., Lelli, F., and Schombert, J. M. (2016). Radial acceleration relation.</li>
+  <li>Bertone, G., and Hooper, D. (2018). History and status of dark matter.</li>
+  <li>Mistele, T., McGaugh, S., Lelli, F., Schombert, J., and Li, P. (2024). Weak-lensing constraints related to extended flat circular velocities.</li>
+</ol>
+</main>
+</body>
+</html>

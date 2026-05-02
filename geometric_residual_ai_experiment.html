@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Search over Geometric Residuals in the Missing-Mass Problem</title>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #f6f7f8;
+      color: #1f252b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.58;
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 42px 22px 72px;
+      background: #ffffff;
+    }
+    h1, h2, h3 { line-height: 1.2; color: #111820; }
+    h1 { margin-bottom: 0.2rem; }
+    .meta { color: #52606d; margin-bottom: 2rem; }
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #d8dde3;
+      margin: 0.75rem 0 1.25rem;
+      background: #fff;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.92rem;
+    }
+    th, td {
+      border: 1px solid #d8dde3;
+      padding: 0.45rem 0.55rem;
+      vertical-align: top;
+    }
+    th { background: #eef2f5; text-align: left; }
+    code { background: #eef2f5; padding: 0.1rem 0.25rem; }
+    .note { color: #46525f; }
+  </style>
+</head>
+<body>
+<main>
+<h1>AI Search over Geometric Residuals in the Missing-Mass Problem</h1>
+<p class="meta"><strong>Author:</strong> J. R. Landers<br><strong>Date:</strong> May 2026</p>
+
+<h2>Abstract</h2>
+<p>This standalone note turns the geometric-residual framing of the missing-mass problem into a small reproducible computational prototype. It generates toy rotation curves, recovers the weak-field geometric residual, compares candidate latent physical generators, and demonstrates why multi-probe constraints matter. It is explicitly a toy framework, not a solution to dark matter.</p>
+
+<h2>Conceptual Starting Point</h2>
+<p>The central object is the difference between the geometry implied by observations and the geometry predicted by visible matter:</p>
+\[
+\Delta G_{\mu\nu}
+=
+G_{\mu\nu}[g^{\rm obs}]
+-
+G_{\mu\nu}[g^{\rm bar}].
+\]
+<p>If Einstein's equation is retained, the same geometric residual can be represented as an effective missing stress-energy tensor:</p>
+\[
+T_{\mu\nu}^{\rm miss}
+=
+\frac{c^4}{8\pi G}\Delta G_{\mu\nu}.
+\]
+<p>This effective object may correspond to particle-like dark matter, field-like sources, modified geometry laws, baryonic errors, environmental effects, systematics, or mixtures of these.</p>
+
+<h2>Weak-Field Galaxy Reduction</h2>
+<p>For toy rotation curves, the practical residual is</p>
+\[
+\Delta g(r)
+=
+g_{\rm obs}(r)-g_{\rm bar}(r)
+=
+\frac{v_{\rm obs}^2(r)-v_{\rm bar}^2(r)}{r}.
+\]
+<p>The potential residual defines the effective density proxy</p>
+\[
+\rho_{\rm eff}(r)=
+\frac{1}{4\pi G}\nabla^2\Delta\Phi.
+\]
+<p>Under a spherical proxy,</p>
+\[
+M_{\rm eff}(<r)=\frac{r^2\Delta g(r)}{G},
+\qquad
+\rho_{\rm eff}(r)=
+\frac{1}{4\pi r^2}\frac{dM_{\rm eff}}{dr}.
+\]
+<p class="note">This spherical inversion is intentionally simplified and is not a realistic disk-galaxy mass reconstruction.</p>
+
+<h2>AI-Assisted Inverse Problem</h2>
+<p>The prototype frames the residual as a latent-generator decomposition:</p>
+\[
+\Delta G_{\mu\nu}^{\rm obs}
+\approx
+\sum_k \Delta G_{\mu\nu}^{(k)}.
+\]
+<p>In the toy radial setting, the search is</p>
+\[
+\Delta g(r) \approx \sum_k w_k f_k(r,g_{\rm bar},\rho_{\rm bar},\nabla\rho_{\rm bar},\ldots).
+\]
+<p>A future covariant search could instead target structures like</p>
+\[
+\Delta \mathcal{E}_{\mu\nu}
+=
+F_{\mu\nu}
+\left(
+g_{\mu\nu},R_{\mu\nu},R,T_{\mu\nu}^{\rm bar},
+\nabla_\alpha T_{\mu\nu}^{\rm bar},\phi,A_\mu,\ldots
+\right).
+\]
+
+<h2>Experimental Design</h2>
+<p>The synthetic baryonic mass profile is</p>
+\[
+M_{\rm bar}(<r) = M_b\left[1-e^{-r/R_d}(1+r/R_d)\right],
+\quad
+g_{\rm bar}(r)=\frac{G M_{\rm bar}(<r)}{r^2}.
+\]
+<p>The hidden-source library contains NFW-like, cored/isothermal-like, MOND-like, soliton/cored scalar-inspired, and mixed residual profiles. Model comparison uses weighted MSE and AIC/BIC-like scores. Physical validity checks track positivity, monotonic effective mass, nonnegative density proxy, and oscillatory behavior. A conceptual lensing/slip proxy is added to show how another observable projection can break a rotation-only degeneracy.</p>
+
+<h2>Results</h2>
+<h3>Residual Recovery</h3>
+<img src="figures/rotation_curve.png" alt="Synthetic rotation curve">
+<img src="figures/acceleration_residual.png" alt="Acceleration residual">
+<img src="figures/effective_mass_density.png" alt="Effective mass and density">
+<p>The broad geometric residual is recovered in all toy cases. Density recovery is noisier because it differentiates the inferred cumulative effective mass.</p>
+<table>
+<thead><tr>
+<th>component</th>
+<th>relative_rmse_delta_g</th>
+<th>corr_delta_g</th>
+<th>delta_g_positive_fraction</th>
+<th>mass_monotonic_fraction</th>
+<th>rho_nonnegative_fraction</th>
+</tr></thead><tbody>
+<tr>
+<td>nfw_like</td>
+<td>0.0332</td>
+<td>0.9979</td>
+<td>1.0000</td>
+<td>0.7207</td>
+<td>0.9944</td>
+</tr>
+<tr>
+<td>cored_isothermal</td>
+<td>0.0494</td>
+<td>0.9937</td>
+<td>0.9944</td>
+<td>0.7430</td>
+<td>0.9833</td>
+</tr>
+<tr>
+<td>mond_like</td>
+<td>0.0903</td>
+<td>0.9601</td>
+<td>1.0000</td>
+<td>0.7374</td>
+<td>0.9889</td>
+</tr>
+<tr>
+<td>soliton_cored</td>
+<td>0.0150</td>
+<td>0.9999</td>
+<td>1.0000</td>
+<td>0.5587</td>
+<td>0.5667</td>
+</tr>
+<tr>
+<td>mixed_nfw_mond</td>
+<td>0.0329</td>
+<td>0.9971</td>
+<td>1.0000</td>
+<td>0.7765</td>
+<td>1.0000</td>
+</tr>
+</tbody></table>
+
+<h3>Candidate Generator Degeneracy</h3>
+<img src="figures/model_comparison.png" alt="Model comparison">
+<p>The best overall BIC-like fit is <strong>Sparse nonnegative mixture</strong>. The best single-family fit is <strong>NFW-like halo</strong>. The mixed example illustrates another inverse problem: the missing residual can be a superposition of latent mechanisms.</p>
+<table>
+<thead><tr>
+<th>model</th>
+<th>weighted_mse</th>
+<th>bic</th>
+<th>complexity</th>
+<th>params</th>
+<th>delta_g_positive_fraction</th>
+<th>mass_monotonic_fraction</th>
+<th>rho_nonnegative_fraction</th>
+<th>pathological_oscillations</th>
+</tr></thead><tbody>
+<tr>
+<td>Sparse nonnegative mixture</td>
+<td>0.5749</td>
+<td>-89.2464</td>
+<td>2</td>
+<td>{&quot;terms&quot;: &quot;MOND residual a0=2200; NFW shape rs=12&quot;}</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>False</td>
+</tr>
+<tr>
+<td>NFW-like halo</td>
+<td>0.6110</td>
+<td>-78.2834</td>
+<td>2</td>
+<td>{&quot;mass_scale&quot;: 30.786280969902787, &quot;r_s&quot;: 15.95042285852726}</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>False</td>
+</tr>
+<tr>
+<td>MOND-like relation</td>
+<td>3.0655</td>
+<td>206.8314</td>
+<td>1</td>
+<td>{&quot;a0&quot;: 2301.6491294046045}</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>False</td>
+</tr>
+<tr>
+<td>Cored/isothermal halo</td>
+<td>9.5635</td>
+<td>416.8183</td>
+<td>2</td>
+<td>{&quot;v0&quot;: 130.6443428001366, &quot;r_c&quot;: 4.435806645184747}</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>0.9944</td>
+<td>False</td>
+</tr>
+<tr>
+<td>Soliton/cored scalar</td>
+<td>229.1534</td>
+<td>988.5764</td>
+<td>2</td>
+<td>{&quot;rho0&quot;: 0.006669625465676975, &quot;r_c&quot;: 11.99999999999947}</td>
+<td>1.0000</td>
+<td>1.0000</td>
+<td>0.9944</td>
+<td>False</td>
+</tr>
+</tbody></table>
+<img src="figures/mixed_source_fit.png" alt="Mixed source fit">
+
+<h3>Multi-Probe Toy Constraint</h3>
+<img src="figures/lensing_proxy_degeneracy.png" alt="Lensing proxy degeneracy">
+<p>Two nearly identical rotation residuals are assigned different gravitational slip behavior. The resulting lensing proxies differ, demonstrating the conceptual value of multi-probe constraints. This is not a physical lensing calculation.</p>
+
+<h3>Sparse Basis Search</h3>
+<img src="figures/sparse_basis_search.png" alt="Sparse basis search">
+<table>
+<thead><tr>
+<th>basis</th>
+<th>normalized_weight</th>
+<th>contribution_rms</th>
+</tr></thead><tbody>
+<tr>
+<td>MOND residual a0=2200</td>
+<td>1.0666e+03</td>
+<td>629.8913</td>
+</tr>
+<tr>
+<td>NFW shape rs=12</td>
+<td>1.3880e+03</td>
+<td>595.6919</td>
+</tr>
+</tbody></table>
+
+<h2>Most Promising Directions</h2>
+<ol>
+  <li>Use real rotation-curve data, for example SPARC-like data.</li>
+  <li>Replace the spherical proxy with disk geometry.</li>
+  <li>Jointly fit rotation and lensing observables.</li>
+  <li>Learn residual representations across galaxy populations.</li>
+  <li>Search over physically constrained Lagrangians and field equations.</li>
+  <li>Enforce conservation, \(\nabla^\mu T_{\mu\nu}^{\rm eff}=0\).</li>
+  <li>Add priors for positivity, stability, monotonicity, and cosmological consistency.</li>
+  <li>Use symbolic regression, differentiable programming, and neural operators to propose residual field structures.</li>
+</ol>
+
+<h2>Limitations</h2>
+<p>The prototype uses toy units, synthetic data, and a spherical approximation. It fits no real galaxy data, performs no true GR metric reconstruction, and does not discover particles. The lensing proxy is conceptual, not physical lensing. The sparse basis search is only a scaffold. The inverse problem remains degenerate.</p>
+
+<h2>Conclusion</h2>
+<p>The missing-mass problem can be studied as an inverse problem over geometric residuals: infer the simplest physically valid generator, or mixture of generators, whose induced curvature residual matches observations across probes.</p>
+
+<h2>References</h2>
+<ol>
+  <li>Rubin, V. C., Ford, W. K., Jr., and Thonnard, N. (1980). Extended rotation curves of spiral galaxies.</li>
+  <li>Lelli, F., McGaugh, S. S., and Schombert, J. M. (2016). SPARC database and disk-galaxy mass models.</li>
+  <li>McGaugh, S. S., Lelli, F., and Schombert, J. M. (2016). Radial acceleration relation.</li>
+  <li>Bertone, G., and Hooper, D. (2018). History and status of dark matter.</li>
+  <li>Mistele, T., McGaugh, S., Lelli, F., Schombert, J., and Li, P. (2024). Weak-lensing constraints related to extended flat circular velocities.</li>
+</ol>
+</main>
+</body>
+</html>
