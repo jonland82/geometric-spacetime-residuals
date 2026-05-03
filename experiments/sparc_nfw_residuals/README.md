@@ -68,6 +68,8 @@ Results:
 - `results/residual_profiles.csv`: pointwise residual profiles and model curves.
 - `results/population_summary.csv`: population-level summary statistics.
 - `results/source_and_assumptions.json`: source URLs and fixed assumptions.
+- `../../papers/sparc_nfw_residuals/sparc_nfw_residual_of_residual_JRLanders.pdf`:
+  standalone real-data paper.
 
 Figures:
 

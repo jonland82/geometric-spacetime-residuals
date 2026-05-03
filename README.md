@@ -110,8 +110,7 @@ experiment folder.
 - `papers/geometric_residual_missing_mass/`: original geometric-residual and
   weak-field warp-search manuscript.
 - `papers/nfw_residual_of_residual/`: synthetic NFW residual-of-residual note.
-- `experiments/sparc_nfw_residuals/sparc_nfw_residual_of_residual_JRLanders.pdf`:
-  real-data SPARC residual-of-residual note.
+- `papers/sparc_nfw_residuals/`: real-data SPARC residual-of-residual note.
 
 ## Scope
 
