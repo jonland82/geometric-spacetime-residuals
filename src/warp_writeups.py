@@ -264,39 +264,39 @@ The best-ranked trial in this run is **{best_family}** with slip mode **{best_et
 
 ### Rotation and Residual Fit
 
-![Warp rotation fit](figures/warp_rotation_fit.png)
+![Warp rotation fit](../figures/warp_rotation_fit.png)
 
-![Warp residual acceleration](figures/warp_residual_acceleration.png)
+![Warp residual acceleration](../figures/warp_residual_acceleration.png)
 
 The best direct warp reproduces the smooth flat-curve residual without naming a physical source. The important output is not a theory label; it is the shape of \\(\\delta\\Phi\\), its derivative, and the effective density structure implied by the warp.
 
 ### Metric Potentials and Slip
 
-![Warp potentials](figures/warp_potentials.png)
+![Warp potentials](../figures/warp_potentials.png)
 
-![Warp lensing proxy](figures/warp_lensing_proxy.png)
+![Warp lensing proxy](../figures/warp_lensing_proxy.png)
 
 Rotation fixes \\(d\\Phi/dr\\), but it does not uniquely determine \\(\\Psi\\). The slip proxy demonstrates how two perturbations with similar rotation behavior can separate under a second projection.
 
 ### Effective Curvature/Density Proxy
 
-![Warp effective profiles](figures/warp_effective_profiles.png)
+![Warp effective profiles](../figures/warp_effective_profiles.png)
 
 Successful long-range warps imply an extended effective density proxy. In this toy target, the outer flat rotation curve pushes the search toward perturbations whose derivative falls roughly like \\(1/r\\), corresponding to a logarithmic potential over the searched radial range.
 
 ### Parameter Regions
 
-![Log warp heatmap](figures/warp_log_parameter_heatmap.png)
+![Log warp heatmap](../figures/warp_log_parameter_heatmap.png)
 
-![Warp search scatter](figures/warp_parameter_scatter.png)
+![Warp search scatter](../figures/warp_parameter_scatter.png)
 
-![Warp family scores](figures/warp_family_scores.png)
+![Warp family scores](../figures/warp_family_scores.png)
 
 The heatmap shows the region of the logarithmic family that works. The scatter plot compares fit quality and outer flatness across families.
 
 ### Basis Warp
 
-![Warp basis components](figures/warp_basis_components.png)
+![Warp basis components](../figures/warp_basis_components.png)
 
 The radial basis warp is not a named physical theory; it is an agnostic function approximator for \\(d\\delta\\Phi/dr\\). It provides a useful check on whether a simple analytic warp is missing structure.
 
@@ -476,23 +476,23 @@ r^2\\frac{{d}}{{dr}}\\delta\\Phi(r)
 <p>The best-ranked trial is <strong>{best_family}</strong> with slip mode <strong>{best_eta}</strong> and score <strong>{best_score}</strong>.</p>
 
 <h3>Rotation and Residual Fit</h3>
-<img src="figures/warp_rotation_fit.png" alt="Warp rotation fit">
-<img src="figures/warp_residual_acceleration.png" alt="Warp residual acceleration">
+<img src="../figures/warp_rotation_fit.png" alt="Warp rotation fit">
+<img src="../figures/warp_residual_acceleration.png" alt="Warp residual acceleration">
 
 <h3>Metric Potentials and Slip</h3>
-<img src="figures/warp_potentials.png" alt="Warp potentials">
-<img src="figures/warp_lensing_proxy.png" alt="Warp lensing proxy">
+<img src="../figures/warp_potentials.png" alt="Warp potentials">
+<img src="../figures/warp_lensing_proxy.png" alt="Warp lensing proxy">
 
 <h3>Effective Density Proxy</h3>
-<img src="figures/warp_effective_profiles.png" alt="Warp effective profiles">
+<img src="../figures/warp_effective_profiles.png" alt="Warp effective profiles">
 
 <h3>Parameter Regions</h3>
-<img src="figures/warp_log_parameter_heatmap.png" alt="Log warp heatmap">
-<img src="figures/warp_parameter_scatter.png" alt="Warp parameter scatter">
-<img src="figures/warp_family_scores.png" alt="Warp family scores">
+<img src="../figures/warp_log_parameter_heatmap.png" alt="Log warp heatmap">
+<img src="../figures/warp_parameter_scatter.png" alt="Warp parameter scatter">
+<img src="../figures/warp_family_scores.png" alt="Warp family scores">
 
 <h3>Basis Warp</h3>
-<img src="figures/warp_basis_components.png" alt="Warp basis components">
+<img src="../figures/warp_basis_components.png" alt="Warp basis components">
 
 <h3>Top-Ranked Candidates</h3>
 {html_table(top_rows)}
@@ -540,9 +540,10 @@ r^2\\frac{{d}}{{dr}}\\delta\\Phi(r)
 
 def write_reports(root: str | Path, top: pd.DataFrame, families: pd.DataFrame, basis: pd.DataFrame) -> tuple[Path, Path]:
     root = Path(root)
-    md_path = root / "geometric_warp_grid_search.md"
-    html_path = root / "geometric_warp_grid_search.html"
+    reports = root / "reports"
+    reports.mkdir(parents=True, exist_ok=True)
+    md_path = reports / "geometric_warp_grid_search.md"
+    html_path = reports / "geometric_warp_grid_search.html"
     md_path.write_text(build_markdown(top, families, basis), encoding="utf-8")
     html_path.write_text(build_html(top, families, basis), encoding="utf-8")
     return md_path, html_path
-

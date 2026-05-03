@@ -1,0 +1,11 @@
+{
+  "mass_models_url": "https://astroweb.cwru.edu/SPARC/MassModels_Lelli2016c.mrt",
+  "sample_table_url": "https://zenodo.org/records/16284118/files/SPARC_Lelli2016c.mrt?download=1",
+  "upsilon_disk": 0.5,
+  "upsilon_bulge": 0.7,
+  "notes": [
+    "Vgas is included with sign as recommended for SPARC velocity contributions.",
+    "Vdisk and Vbul are scaled from M/L=1 using fixed fiducial mass-to-light ratios.",
+    "Effective density proxies are spherical diagnostics, not disk inversions."
+  ]
+}

@@ -169,39 +169,39 @@ The best-ranked trial in this run is **log_warp** with slip mode **no_slip** and
 
 ### Rotation and Residual Fit
 
-![Warp rotation fit](figures/warp_rotation_fit.png)
+![Warp rotation fit](../figures/warp_rotation_fit.png)
 
-![Warp residual acceleration](figures/warp_residual_acceleration.png)
+![Warp residual acceleration](../figures/warp_residual_acceleration.png)
 
 The best direct warp reproduces the smooth flat-curve residual without naming a physical source. The important output is not a theory label; it is the shape of \(\delta\Phi\), its derivative, and the effective density structure implied by the warp.
 
 ### Metric Potentials and Slip
 
-![Warp potentials](figures/warp_potentials.png)
+![Warp potentials](../figures/warp_potentials.png)
 
-![Warp lensing proxy](figures/warp_lensing_proxy.png)
+![Warp lensing proxy](../figures/warp_lensing_proxy.png)
 
 Rotation fixes \(d\Phi/dr\), but it does not uniquely determine \(\Psi\). The slip proxy demonstrates how two perturbations with similar rotation behavior can separate under a second projection.
 
 ### Effective Curvature/Density Proxy
 
-![Warp effective profiles](figures/warp_effective_profiles.png)
+![Warp effective profiles](../figures/warp_effective_profiles.png)
 
 Successful long-range warps imply an extended effective density proxy. In this toy target, the outer flat rotation curve pushes the search toward perturbations whose derivative falls roughly like \(1/r\), corresponding to a logarithmic potential over the searched radial range.
 
 ### Parameter Regions
 
-![Log warp heatmap](figures/warp_log_parameter_heatmap.png)
+![Log warp heatmap](../figures/warp_log_parameter_heatmap.png)
 
-![Warp search scatter](figures/warp_parameter_scatter.png)
+![Warp search scatter](../figures/warp_parameter_scatter.png)
 
-![Warp family scores](figures/warp_family_scores.png)
+![Warp family scores](../figures/warp_family_scores.png)
 
 The heatmap shows the region of the logarithmic family that works. The scatter plot compares fit quality and outer flatness across families.
 
 ### Basis Warp
 
-![Warp basis components](figures/warp_basis_components.png)
+![Warp basis components](../figures/warp_basis_components.png)
 
 The radial basis warp is not a named physical theory; it is an agnostic function approximator for \(d\delta\Phi/dr\). It provides a useful check on whether a simple analytic warp is missing structure.
 

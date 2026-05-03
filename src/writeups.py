@@ -250,11 +250,11 @@ The multi-probe experiment adds a conceptual lensing/slip proxy. Dynamics probes
 
 ### Residual Recovery
 
-![Synthetic rotation curve](figures/rotation_curve.png)
+![Synthetic rotation curve](../figures/rotation_curve.png)
 
-![Acceleration residual](figures/acceleration_residual.png)
+![Acceleration residual](../figures/acceleration_residual.png)
 
-![Effective mass and density](figures/effective_mass_density.png)
+![Effective mass and density](../figures/effective_mass_density.png)
 
 The synthetic inversion recovers the broad geometric residual in all generated cases. Noise is amplified when converting velocity to acceleration and especially when differentiating \\(M_{{\\rm eff}}\\) to estimate \\(\\rho_{{\\rm eff}}\\), which is why the density proxy is the least stable derived quantity.
 
@@ -262,25 +262,25 @@ The synthetic inversion recovers the broad geometric residual in all generated c
 
 ### Candidate Generator Degeneracy
 
-![Model comparison](figures/model_comparison.png)
+![Model comparison](../figures/model_comparison.png)
 
 The mixed-source example illustrates the core inverse-problem issue: several candidate generators can produce broadly similar rotation residuals. The best overall BIC-like fit in this run is **{best['model']}**, while the best single-family fit is **{best_single_text}**. The sparse mixture is allowed to represent the missing residual as a superposition of latent mechanisms, so it can improve the fit when the truth is mixed.
 
 {markdown_table(model_display, list(model_display[0].keys()) if model_display else [])}
 
-![Mixed source fit](figures/mixed_source_fit.png)
+![Mixed source fit](../figures/mixed_source_fit.png)
 
 This supports the interpretation that the residual decomposition is itself another inverse problem. The missing residual need not be one source; it may be a superposition of particle-like, field-like, baryon-coupled, modified-geometry, and systematic contributions.
 
 ### Multi-Probe Toy Constraint
 
-![Lensing proxy degeneracy](figures/lensing_proxy_degeneracy.png)
+![Lensing proxy degeneracy](../figures/lensing_proxy_degeneracy.png)
 
 The top panel uses two nearly identical rotation residuals. The lower panels assign different slip behavior and therefore different lensing proxies. This demonstrates the logic of joint constraints without pretending to compute real lensing observables.
 
 ### Sparse Basis Search
 
-![Sparse basis search](figures/sparse_basis_search.png)
+![Sparse basis search](../figures/sparse_basis_search.png)
 
 The sparse basis fit selected the following terms:
 
@@ -495,24 +495,24 @@ g_{{\\rm bar}}(r)=\\frac{{G M_{{\\rm bar}}(<r)}}{{r^2}}.
 
 <h2>Results</h2>
 <h3>Residual Recovery</h3>
-<img src="figures/rotation_curve.png" alt="Synthetic rotation curve">
-<img src="figures/acceleration_residual.png" alt="Acceleration residual">
-<img src="figures/effective_mass_density.png" alt="Effective mass and density">
+<img src="../figures/rotation_curve.png" alt="Synthetic rotation curve">
+<img src="../figures/acceleration_residual.png" alt="Acceleration residual">
+<img src="../figures/effective_mass_density.png" alt="Effective mass and density">
 <p>The broad geometric residual is recovered in all toy cases. Density recovery is noisier because it differentiates the inferred cumulative effective mass.</p>
 {html_table(summary_display, list(summary_display[0].keys()) if summary_display else [])}
 
 <h3>Candidate Generator Degeneracy</h3>
-<img src="figures/model_comparison.png" alt="Model comparison">
+<img src="../figures/model_comparison.png" alt="Model comparison">
 <p>The best overall BIC-like fit is <strong>{best_text}</strong>. The best single-family fit is <strong>{best_single_text}</strong>. The mixed example illustrates another inverse problem: the missing residual can be a superposition of latent mechanisms.</p>
 {html_table(model_display, list(model_display[0].keys()) if model_display else [])}
-<img src="figures/mixed_source_fit.png" alt="Mixed source fit">
+<img src="../figures/mixed_source_fit.png" alt="Mixed source fit">
 
 <h3>Multi-Probe Toy Constraint</h3>
-<img src="figures/lensing_proxy_degeneracy.png" alt="Lensing proxy degeneracy">
+<img src="../figures/lensing_proxy_degeneracy.png" alt="Lensing proxy degeneracy">
 <p>Two nearly identical rotation residuals are assigned different gravitational slip behavior. The resulting lensing proxies differ, demonstrating the conceptual value of multi-probe constraints. This is not a physical lensing calculation.</p>
 
 <h3>Sparse Basis Search</h3>
-<img src="figures/sparse_basis_search.png" alt="Sparse basis search">
+<img src="../figures/sparse_basis_search.png" alt="Sparse basis search">
 {html_table(sparse_display, list(sparse_display[0].keys()) if sparse_display else [])}
 
 <h2>Most Promising Directions</h2>
@@ -554,8 +554,10 @@ def write_research_notes(
     sparse_rows: list[dict[str, object]],
 ) -> tuple[Path, Path]:
     root = Path(root)
-    md_path = root / "geometric_residual_ai_experiment.md"
-    html_path = root / "geometric_residual_ai_experiment.html"
+    reports = root / "reports"
+    reports.mkdir(parents=True, exist_ok=True)
+    md_path = reports / "geometric_residual_ai_experiment.md"
+    html_path = reports / "geometric_residual_ai_experiment.html"
     md_path.write_text(build_markdown(summary_rows, model_rows, sparse_rows), encoding="utf-8")
     html_path.write_text(build_html(summary_rows, model_rows, sparse_rows), encoding="utf-8")
     return md_path, html_path

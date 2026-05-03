@@ -133,11 +133,11 @@ The multi-probe experiment adds a conceptual lensing/slip proxy. Dynamics probes
 
 ### Residual Recovery
 
-![Synthetic rotation curve](figures/rotation_curve.png)
+![Synthetic rotation curve](../figures/rotation_curve.png)
 
-![Acceleration residual](figures/acceleration_residual.png)
+![Acceleration residual](../figures/acceleration_residual.png)
 
-![Effective mass and density](figures/effective_mass_density.png)
+![Effective mass and density](../figures/effective_mass_density.png)
 
 The synthetic inversion recovers the broad geometric residual in all generated cases. Noise is amplified when converting velocity to acceleration and especially when differentiating \(M_{\rm eff}\) to estimate \(\rho_{\rm eff}\), which is why the density proxy is the least stable derived quantity.
 
@@ -151,7 +151,7 @@ The synthetic inversion recovers the broad geometric residual in all generated c
 
 ### Candidate Generator Degeneracy
 
-![Model comparison](figures/model_comparison.png)
+![Model comparison](../figures/model_comparison.png)
 
 The mixed-source example illustrates the core inverse-problem issue: several candidate generators can produce broadly similar rotation residuals. The best overall BIC-like fit in this run is **Sparse nonnegative mixture**, while the best single-family fit is **NFW-like halo**. The sparse mixture is allowed to represent the missing residual as a superposition of latent mechanisms, so it can improve the fit when the truth is mixed.
 
@@ -163,19 +163,19 @@ The mixed-source example illustrates the core inverse-problem issue: several can
 | Cored/isothermal halo | 9.5635 | 416.8183 | 2 | {"v0": 130.6443428001366, "r_c": 4.435806645184747} | 1.0000 | 1.0000 | 0.9944 | False |
 | Soliton/cored scalar | 229.1534 | 988.5764 | 2 | {"rho0": 0.006669625465676975, "r_c": 11.99999999999947} | 1.0000 | 1.0000 | 0.9944 | False |
 
-![Mixed source fit](figures/mixed_source_fit.png)
+![Mixed source fit](../figures/mixed_source_fit.png)
 
 This supports the interpretation that the residual decomposition is itself another inverse problem. The missing residual need not be one source; it may be a superposition of particle-like, field-like, baryon-coupled, modified-geometry, and systematic contributions.
 
 ### Multi-Probe Toy Constraint
 
-![Lensing proxy degeneracy](figures/lensing_proxy_degeneracy.png)
+![Lensing proxy degeneracy](../figures/lensing_proxy_degeneracy.png)
 
 The top panel uses two nearly identical rotation residuals. The lower panels assign different slip behavior and therefore different lensing proxies. This demonstrates the logic of joint constraints without pretending to compute real lensing observables.
 
 ### Sparse Basis Search
 
-![Sparse basis search](figures/sparse_basis_search.png)
+![Sparse basis search](../figures/sparse_basis_search.png)
 
 The sparse basis fit selected the following terms:
 
