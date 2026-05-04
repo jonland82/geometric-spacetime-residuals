@@ -56,27 +56,22 @@ Jonathan R. Landers\\[-0.2em]
 \begin{abstract}
 Galaxy rotation curves define a noisy inverse problem: the baryonic mass model
 predicts one acceleration field, while the observed dynamics imply another.
-Standard analyses fit named source families, such as Navarro--Frenk--White
-(NFW), cored halos, or modified-dynamics relations. This paper studies the
-leftover field after such a baseline has been fit: is the remaining geometric
-residual compressible across a population? We introduce a masked, smooth,
-nonnegative dictionary-learning diagnostic for SPARC rotation-curve residuals.
-For each galaxy we compute the baryon-subtracted acceleration residual and the
-residual-of-residual left after fitting NFW to the outer region. A two-channel
-lift represents signed residual fields while retaining
-nonnegative coefficients. A short theorem shows that, under an idealized
-baseline-projection model, residual-of-residual learning removes arbitrary
-baseline variation and exactly preserves latent misspecification modes. On 131
-primary-quality SPARC galaxies, a rank-six dictionary reduces held-out radial
-profile error from 0.543 to 0.098 for positive acceleration residuals and from
-1.075 to 0.168 for signed NFW residual-of-residuals. The same sample has a
-pre-learning residual diagnostic in which cored/isothermal profiles beat NFW for
-80.2\% of galaxies and outer-NFW fits leave central overshoot in 51.9\%. The
-first three signed residual modes are bootstrap-stable, and a learned
-coefficient is strongly associated with that independent overshoot diagnostic.
-These results do not decide between dark matter and modified gravity. They show
-that population residual modes are learnable model-criticism objects for the
-missing-mass inverse problem.
+This paper asks whether the leftover field after fitting a physical baseline is
+compressible across galaxies. We introduce a masked, smooth, nonnegative
+dictionary-learning diagnostic for SPARC rotation-curve residuals. For each
+galaxy we compute the baryon-subtracted acceleration residual and the
+residual-of-residual left after fitting NFW to the outer region; a two-channel
+lift represents signed residual fields with nonnegative coefficients. A theorem
+shows that, under an idealized baseline-projection model,
+residual-of-residual learning removes arbitrary baseline variation while
+preserving latent misspecification modes. On 131 primary-quality SPARC
+galaxies, a rank-six dictionary reduces held-out radial profile error from
+0.543 to 0.098 for positive acceleration residuals and from 1.075 to 0.168 for
+signed NFW residual-of-residuals. The first three signed modes are
+bootstrap-stable, and learned coefficients align with an independent
+central-overshoot diagnostic. These results do not decide between dark matter
+and modified gravity. They show that population residual modes are learnable
+model-criticism objects for the missing-mass inverse problem.
 \end{abstract}
 
 \section{Introduction}
@@ -114,6 +109,13 @@ for by the chosen baseline source. The logic is conservative: fit a physical
 baseline, remove it, and learn the recurring structure that remains. In that
 sense $\epsg$ is a model-criticism object \citep{Gelman1996}, not a direct
 theory selector.
+
+The distinction matters empirically in the SPARC sample studied below. Before
+learning, the same residual pipeline finds that cored/isothermal residual
+profiles beat NFW for 80.2\% of primary-quality galaxies, and outer-NFW fits
+leave central overshoot in 51.9\%. These quantities are not training labels.
+They are held back as independent diagnostics for asking whether learned
+population coordinates recover recognizable residual structure.
 
 The geometric point is that $\Dg$ is not just a scalar error bar or a
 goodness-of-fit residual. In the weak-field limit it is the radial derivative
