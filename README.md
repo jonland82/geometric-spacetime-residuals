@@ -5,6 +5,33 @@ geometric-residual framing of the missing-mass problem. The central object is
 the mismatch between the geometry implied by observations and the geometry
 predicted from observed baryons.
 
+## Context and Contributions
+
+Galaxy rotation curves define an inverse problem: observed baryons predict one
+weak-field acceleration profile, while the measured dynamics imply another.
+Rather than treating the mismatch only as a parameter-fitting residual for a
+single named model, this repo studies the leftover field itself. The guiding
+question is whether geometric residuals are structured, compressible, and
+learnable across a population of galaxies.
+
+The work develops three connected ideas:
+
+- A **geometric residual** view of missing mass, where
+  $\Delta g(R) = [V_{\rm obs}^2(R)-V_{\rm bar}^2(R)]/R$ is treated as an
+  inferred field rather than just an error term.
+- A **residual-of-residual** diagnostic: fit a physical baseline such as NFW,
+  subtract it, and analyze the coherent structure that remains.
+- A **statistical-learning layer** for real SPARC galaxies, using masked smooth
+  dictionary learning to find stable population modes in those leftover fields.
+
+The main current result is the SPARC residual dictionary-learning paper in
+`papers/sparc_residual_dictionary_learning/`. It shows that residual profiles
+from 131 primary-quality SPARC galaxies are strongly compressible, that the
+first signed residual-of-residual modes are bootstrap-stable, and that learned
+coordinates align with independent central-overshoot diagnostics. The claim is
+model criticism, not theory selection: fit the baseline, learn what remains,
+and test whether the leftover geometry is coherent.
+
 ## Repository Layout
 
 - `src/`: shared Python modules for toy profiles, weak-field inversion,
