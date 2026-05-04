@@ -949,7 +949,7 @@ pre-existing NFW residual diagnostics.
 
 ## Interpretation
 
-This experiment supports a clean statistical-learning extension of the
+This experiment supports a clean statistical learning extension of the
 geometric-residual paper. The useful result is not merely that a hand-written
 template beats another hand-written template. The SPARC residual population can
 be compressed into a small number of learned, stable residual modes, and those

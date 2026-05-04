@@ -23,7 +23,7 @@ The work develops three connected ideas:
   inferred field rather than just an error term.
 - A **residual-of-residual** diagnostic: fit a physical baseline such as NFW,
   subtract it, and analyze the coherent structure that remains.
-- A **statistical-learning layer** for real SPARC galaxies, using masked smooth
+- A **statistical learning layer** for real SPARC galaxies, using masked smooth
   dictionary learning to find stable population modes in those leftover fields.
 
 The main current result is the SPARC residual dictionary-learning paper in
@@ -150,7 +150,7 @@ writes a Markdown report in the experiment folder.
   weak-field warp-search manuscript.
 - `papers/nfw_residual_of_residual/`: synthetic NFW residual-of-residual note.
 - `papers/sparc_nfw_residuals/`: real-data SPARC residual-of-residual note.
-- `papers/sparc_residual_dictionary_learning/`: stat.ML-style conference paper
+- `papers/sparc_residual_dictionary_learning/`: conference paper
   on masked dictionary learning for SPARC residual-of-residual fields.
 
 ## Scope
