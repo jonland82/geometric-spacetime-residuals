@@ -66,17 +66,9 @@ Primary outputs:
 ### Geometry-First Warp Grid Search
 
 Searches directly over weak-field metric perturbations,
-
-$$
-g_{\mu\nu}^{\rm trial}
-=
-g_{\mu\nu}^{\rm bar}
-+
-h_{\mu\nu}(\theta),
-$$
-
-using radial perturbations of $\delta\Phi(r)$ and $\delta\Psi(r)$, rather
-than starting from named physical theories.
+$g_{\mu\nu}^{\rm trial}=g_{\mu\nu}^{\rm bar}+h_{\mu\nu}(\theta)$,
+using radial perturbations of $\delta\Phi(r)$ and $\delta\Psi(r)$, rather than
+starting from named physical theories.
 
 ```bash
 python run_warp_grid_search.py
