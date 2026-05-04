@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Geometric residual learning for galaxy rotation curves: SPARC residual-of-residual dictionary learning, results, mathematics, and artifacts.">
+  <title>Geometric Spacetime Residuals</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        processEscapes: true
+      },
+      svg: {
+        fontCache: "global"
+      }
+    };
+  </script>
+  <script async src="assets/mathjax/tex-svg.js"></script>
+  <style>
+    :root {
+      --bg: #05070c;
+      --panel: #0d121b;
+      --panel-2: #121925;
+      --ink: #f4f7fb;
+      --muted: #a9b6c8;
+      --soft: #748197;
+      --line: rgba(255, 255, 255, 0.12);
+      --cyan: #45d6c5;
+      --blue: #6ca7ff;
+      --coral: #ff8266;
+      --gold: #ffcc66;
+      --green: #81e6a8;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+      --wrap: min(1120px, calc(100vw - 32px));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(9, 16, 25, 0.96), var(--bg) 38rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15.5px;
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(5, 7, 12, 0.78);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      width: var(--wrap);
+      margin: 0 auto;
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(69, 214, 197, 0.5);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--cyan);
+      box-shadow: 0 0 22px rgba(69, 214, 197, 0.24);
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .hero {
+      position: relative;
+      min-height: clamp(560px, 76vh, 740px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(5, 7, 12, 0.96) 0%, rgba(5, 7, 12, 0.8) 42%, rgba(5, 7, 12, 0.26) 100%),
+        linear-gradient(0deg, rgba(5, 7, 12, 1) 0%, rgba(5, 7, 12, 0.28) 32%, rgba(5, 7, 12, 0.8) 100%),
+        url("assets/hero-residual-modes.png") center right / cover no-repeat;
+      filter: saturate(1.08) contrast(1.06);
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 38%;
+      background: linear-gradient(180deg, transparent, var(--bg));
+      z-index: -1;
+    }
+
+    .hero-content {
+      width: var(--wrap);
+      margin: 0 auto;
+      padding: 54px 0 76px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.75;
+    }
+
+    h1 {
+      max-width: 820px;
+      margin: 0;
+      color: #ffffff;
+      font-size: clamp(32px, 5.55vw, 60px);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 18px 0 0;
+      color: #d7e0ec;
+      font-size: clamp(16px, 1.55vw, 19px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.07);
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .button.primary {
+      color: #031010;
+      background: var(--cyan);
+      border-color: var(--cyan);
+      box-shadow: 0 16px 42px rgba(69, 214, 197, 0.2);
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .button.primary:hover {
+      background: #67efe1;
+      border-color: #67efe1;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .hero-meta span {
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    main {
+      position: relative;
+    }
+
+    section {
+      padding: 58px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .wrap {
+      width: var(--wrap);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+      gap: 30px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--cyan);
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+    }
+
+    h2 {
+      margin: 0;
+      color: #ffffff;
+      font-size: clamp(22px, 3.1vw, 34px);
+      line-height: 1.06;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      color: #ffffff;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .story-step,
+    .metric,
+    .artifact,
+    .math-panel,
+    .takeaway,
+    .figure-frame {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
+      box-shadow: var(--shadow);
+    }
+
+    .story-step {
+      padding: 18px;
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .step-index {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #061013;
+      font-weight: 900;
+      background: var(--cyan);
+    }
+
+    .story-step p,
+    .artifact p,
+    .takeaway p,
+    .math-panel p,
+    .figure-frame figcaption {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .math-grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .math-grid.deep {
+      grid-template-columns: 1fr;
+      margin-top: 16px;
+    }
+
+    .math-stack {
+      display: grid;
+      gap: 13px;
+    }
+
+    .math-panel {
+      padding: 20px;
+    }
+
+    .equation {
+      margin: 13px 0;
+      padding: 12px 14px;
+      border: 1px solid rgba(69, 214, 197, 0.24);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.22);
+      color: #f7fbff;
+      font-size: clamp(12px, 1.7vw, 13.5px);
+      overflow-x: auto;
+    }
+
+    .equation .MathJax {
+      min-width: max-content;
+    }
+
+    .math-note {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    .math-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+      margin-top: 12px;
+    }
+
+    .math-mini {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .theorem {
+      display: grid;
+      gap: 13px;
+    }
+
+    .theorem-line {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .theorem-line:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .label {
+      color: var(--gold);
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric {
+      min-height: 128px;
+      padding: 17px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .metric strong {
+      color: #ffffff;
+      font-size: clamp(23px, 3.45vw, 34px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metric.cyan strong { color: var(--cyan); }
+    .metric.blue strong { color: var(--blue); }
+    .metric.coral strong { color: var(--coral); }
+    .metric.green strong { color: var(--green); }
+
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .figure-frame {
+      overflow: hidden;
+    }
+
+    .figure-frame.wide {
+      grid-column: 1 / -1;
+    }
+
+    .figure-frame img {
+      width: 100%;
+      background: #ffffff;
+    }
+
+    .figure-frame figcaption {
+      padding: 14px 16px 16px;
+      font-size: 12px;
+    }
+
+    .results-band {
+      background:
+        linear-gradient(180deg, rgba(69, 214, 197, 0.08), rgba(5, 7, 12, 0)),
+        var(--bg);
+    }
+
+    .takeaways {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .takeaway {
+      padding: 18px;
+    }
+
+    .takeaway h3 {
+      color: var(--cyan);
+    }
+
+    .artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .artifact {
+      min-height: 138px;
+      padding: 17px;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .artifact:hover {
+      transform: translateY(-2px);
+      border-color: rgba(69, 214, 197, 0.45);
+      background: linear-gradient(180deg, rgba(69, 214, 197, 0.095), rgba(255, 255, 255, 0.03));
+    }
+
+    .artifact .type {
+      display: inline-flex;
+      margin-bottom: 12px;
+      color: var(--cyan);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .artifact p {
+      font-size: 12px;
+    }
+
+    .closing {
+      padding: 48px 0;
+      background: #03050a;
+    }
+
+    .closing-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(250px, 0.8fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .closing p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 15.5px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px 11px;
+      font-size: 11.5px;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    @media (max-width: 900px) {
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        min-height: 680px;
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(5, 7, 12, 0.92) 0%, rgba(5, 7, 12, 0.8) 48%, rgba(5, 7, 12, 0.98) 100%),
+          url("assets/hero-residual-modes.png") center top / auto 54% no-repeat;
+      }
+
+      .hero-content {
+        padding: 250px 0 60px;
+      }
+
+      .section-head,
+      .math-grid,
+      .closing-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .story-grid,
+      .metrics,
+      .takeaways,
+      .artifact-grid,
+      .math-mini-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .figure-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      :root {
+        --wrap: min(368px, calc(100vw - 22px));
+      }
+
+      .brand span:last-child {
+        white-space: normal;
+      }
+
+      .nav-inner,
+      .hero-content,
+      .wrap {
+        margin-left: 11px;
+        margin-right: auto;
+      }
+
+      .nav-links a {
+        padding: 7px 8px;
+      }
+
+      .hero {
+        min-height: 680px;
+      }
+
+      .hero-content {
+        padding-bottom: 46px;
+      }
+
+      .hero-copy {
+        font-size: 15.5px;
+      }
+
+      .hero-actions .button {
+        flex: 1 1 calc(50% - 8px);
+      }
+
+      section {
+        padding: 44px 0;
+      }
+
+      .story-grid,
+      .metrics,
+      .takeaways,
+      .artifact-grid,
+      .math-mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric {
+        min-height: 112px;
+      }
+
+      .theorem-line {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .footer-links {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Geometric Spacetime Residuals home">
+        <span class="brand-mark">g</span>
+        <span>Geometric Spacetime Residuals</span>
+      </a>
+      <div class="nav-links">
+        <a href="#idea">Idea</a>
+        <a href="#math">Math</a>
+        <a href="#results">Results</a>
+        <a href="#artifacts">Artifacts</a>
+        <a href="https://github.com/jonland82/geometric-spacetime-residuals">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-content">
+      <div class="eyebrow">SPARC residual dictionary learning</div>
+      <h1>Learning the geometry left behind by galaxy rotation curves.</h1>
+      <p class="hero-copy">
+        A stat.ML view of the missing-mass inverse problem: fit the physical
+        baseline, subtract it, then learn whether the leftover residual field
+        has stable population structure.
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" href="papers/sparc_residual_dictionary_learning/sparc_residual_dictionary_learning_JRLanders.pdf">Read the paper</a>
+        <a class="button" href="experiments/sparc_residual_dictionary/README.md">Experiment report</a>
+        <a class="button" href="experiments/sparc_residual_dictionary/run_sparc_residual_dictionary.py">Source code</a>
+      </div>
+      <div class="hero-meta" aria-label="Project metadata">
+        <span>Jonathan R. Landers</span>
+        <span>131 SPARC galaxies</span>
+        <span>masked dictionary learning</span>
+        <span>stat.ML conference paper</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="idea">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Narrative</p>
+            <h2>Turn residuals into objects worth learning.</h2>
+          </div>
+          <p class="lead">
+            Rotation curves are usually treated as a contest between named
+            physical models. This project asks a quieter question: after a
+            chosen model has had its chance, is the remaining geometric field
+            random noise, or does it repeat across galaxies?
+          </p>
+        </div>
+
+        <div class="story-grid">
+          <article class="story-step">
+            <span class="step-index">1</span>
+            <div>
+              <h3>Start with the inverse problem</h3>
+              <p>
+                Observed baryons predict one acceleration field. The measured
+                rotation curve implies another. Their difference is the
+                missing field to explain.
+              </p>
+            </div>
+          </article>
+
+          <article class="story-step">
+            <span class="step-index">2</span>
+            <div>
+              <h3>Give the baseline a fair fit</h3>
+              <p>
+                The experiment fits an outer-region NFW residual model first.
+                The learned target is not the raw curve; it is what remains
+                after that baseline is subtracted.
+              </p>
+            </div>
+          </article>
+
+          <article class="story-step">
+            <span class="step-index">3</span>
+            <div>
+              <h3>Learn the leftover geometry</h3>
+              <p>
+                A smooth masked dictionary compresses residual fields on a
+                common radius grid, exposing recurring modes and coefficients
+                that can be checked against independent diagnostics.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="math">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Mathematics</p>
+            <h2>The core move is projection before learning.</h2>
+          </div>
+          <p class="lead">
+            The residual-of-residual construction separates baseline variation
+            from misspecification structure. Intuitively, the algorithm learns
+            the coherent field that survives after the fitted source family has
+            been removed.
+          </p>
+        </div>
+
+        <div class="math-grid">
+          <article class="math-panel">
+            <h3>Residual field</h3>
+            <p>The baryon-subtracted acceleration residual is the inferred field.</p>
+            <div class="equation">
+              \[
+                \Delta g(R)=
+                \frac{V_{\rm obs}^2(R)-V_{\rm bar}^2(R)}{R}.
+              \]
+            </div>
+            <p>After fitting a baseline source model, the learned object is:</p>
+            <div class="equation">
+              \[
+                \epsilon_g(R)=\Delta g(R)-\Delta g_\theta(R).
+              \]
+            </div>
+            <p>
+              Signed residuals are represented as two nonnegative channels,
+              so dictionary coefficients remain interpretable and constrained.
+            </p>
+            <div class="equation">
+              \[
+                \epsilon_g(R)=\epsilon_g^+(R)-\epsilon_g^-(R),
+                \qquad
+                \epsilon_g^\pm(R)\ge 0.
+              \]
+            </div>
+          </article>
+
+          <article class="math-panel theorem">
+            <h3>Dictionary model</h3>
+            <p>
+              On the common normalized-radius grid, each galaxy is approximated
+              by a small set of shared residual shapes:
+            </p>
+            <div class="equation">
+              \[
+                X_i(r)\approx \sum_{k=1}^{K} a_{ik}\,\phi_k(r),
+                \qquad a_{ik}\ge 0.
+              \]
+            </div>
+            <p>
+              Missing radial entries are handled by a mask, so the loss is
+              evaluated only where a galaxy has observed coverage:
+            </p>
+            <div class="equation">
+              \[
+                \min_{A,\Phi\ge 0}
+                \sum_i
+                \left\|
+                  M_i\odot
+                  \left(X_i-\sum_{k=1}^K a_{ik}\phi_k\right)
+                \right\|_2^2
+                +\lambda\,\mathcal S(\Phi).
+              \]
+            </div>
+          </article>
+        </div>
+
+        <div class="math-grid deep">
+          <article class="math-panel">
+            <h3>Flat-tail geometry</h3>
+            <p>
+              The simplest rotation-curve fact already has geometric content.
+              If the excess circular speed is approximately flat, then
+            </p>
+            <div class="equation">
+              \[
+                V_{\rm obs}^2(R)-V_{\rm bar}^2(R)=v_f^2,
+              \]
+            </div>
+            <p>
+              so the residual acceleration is a \(1/R\) field, the weak-field
+              potential perturbation is logarithmic, and the spherical
+              effective-density proxy has an \(R^{-2}\) tail:
+            </p>
+            <div class="math-mini-grid">
+              <div class="math-mini">
+                <div class="equation">
+                  \[
+                    \Delta g(R)=\frac{v_f^2}{R}
+                  \]
+                </div>
+              </div>
+              <div class="math-mini">
+                <div class="equation">
+                  \[
+                    \delta\Phi(R)=v_f^2\log(R/R_0)+C
+                  \]
+                </div>
+              </div>
+              <div class="math-mini">
+                <div class="equation">
+                  \[
+                    \rho_{\rm eff}(R)=\frac{v_f^2}{4\pi G R^2}
+                  \]
+                </div>
+              </div>
+            </div>
+            <p class="math-note">
+              This is not a claim that galaxies are spherical. It is the
+              clean diagnostic bridge from a rotation-curve residual to an
+              inferred geometric field.
+            </p>
+          </article>
+
+          <article class="math-panel theorem">
+            <h3>Projection theorem, in one picture</h3>
+            <p>
+              Let each profile decompose into a fitted baseline component,
+              a latent misspecification component, and noise:
+            </p>
+            <div class="equation">
+              \[
+                x_i=b_i+s_i+\eta_i,
+                \qquad b_i\in\mathcal B,\quad s_i\in\mathcal B^\perp.
+              \]
+            </div>
+            <p>
+              Baseline projection forms the residual
+            </p>
+            <div class="equation">
+              \[
+                e_i=(I-\Pi_{\mathcal B})x_i=s_i+(I-\Pi_{\mathcal B})\eta_i.
+              \]
+            </div>
+            <p>
+              Thus any cone generated by the misspecification modes is
+              preserved after subtraction:
+            </p>
+            <div class="equation">
+              \[
+                s_i=\sum_{k=1}^{K}a_{ik}\phi_k,\quad a_{ik}\ge0
+                \quad\Longrightarrow\quad
+                e_i=\sum_{k=1}^{K}a_{ik}\phi_k+\tilde\eta_i.
+              \]
+            </div>
+            <p>
+              The reason for subtracting first is visible in the raw covariance.
+              If baseline variation has scale \(c\), then
+            </p>
+            <div class="equation">
+              \[
+                C_X(c)=c^2B^\top B+S^\top S.
+              \]
+            </div>
+            <p>
+              For sufficiently large \(c\), leading raw components are baseline
+              directions. Residual learning removes \(\mathcal B\) before
+              discovering the population structure in \(S\).
+            </p>
+          </article>
+
+          <article class="math-panel theorem">
+            <h3>Theorem intuition</h3>
+            <div class="theorem-line">
+              <span class="label">Problem</span>
+              <p>Raw profiles mix large baseline variation with smaller leftover structure.</p>
+            </div>
+            <div class="theorem-line">
+              <span class="label">Move</span>
+              <p>Project out the fitted baseline before learning the dictionary.</p>
+            </div>
+            <div class="theorem-line">
+              <span class="label">Result</span>
+              <p>Under an idealized baseline-projection model, this removes arbitrary baseline amplitude and preserves the latent misspecification modes exactly.</p>
+            </div>
+            <div class="theorem-line">
+              <span class="label">Meaning</span>
+              <p>The method is a model-criticism tool, not a direct declaration that one physical theory has won.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-band" id="results">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Results</p>
+            <h2>The residual population is strongly compressible.</h2>
+          </div>
+          <p class="lead">
+            The strongest empirical claim is modest and useful: on the
+            primary-quality SPARC sample, low-rank dictionaries reconstruct
+            held-out radial points far better than a population mean, and the
+            signed modes are stable enough to interpret.
+          </p>
+        </div>
+
+        <div class="metrics" aria-label="Key results">
+          <article class="metric cyan">
+            <strong>131</strong>
+            <span>primary-quality SPARC galaxies after coverage cuts</span>
+          </article>
+          <article class="metric blue">
+            <strong>0.543 -> 0.098</strong>
+            <span>positive residual held-out profile RMSE, mean to K=6</span>
+          </article>
+          <article class="metric coral">
+            <strong>1.075 -> 0.168</strong>
+            <span>signed NFW residual-of-residual held-out profile RMSE</span>
+          </article>
+          <article class="metric green">
+            <strong>0.997</strong>
+            <span>median bootstrap correlation for signed mode 1</span>
+          </article>
+        </div>
+
+        <div class="figure-grid">
+          <figure class="figure-frame wide">
+            <img src="experiments/sparc_residual_dictionary/figures/learned_modes.png" alt="Learned positive residual and signed residual-of-residual modes">
+            <figcaption>
+              Learned population modes. The signed residual-of-residual modes
+              describe what remains after the NFW baseline is forced to match
+              the outer region.
+            </figcaption>
+          </figure>
+
+          <figure class="figure-frame">
+            <img src="experiments/sparc_residual_dictionary/figures/model_selection.png" alt="Held-out reconstruction error decreases with dictionary rank">
+            <figcaption>
+              Held-out radial-point reconstruction improves through the
+              searched rank, showing compressible population structure.
+            </figcaption>
+          </figure>
+
+          <figure class="figure-frame">
+            <img src="experiments/sparc_residual_dictionary/figures/bootstrap_stability.png" alt="Bootstrap stability of learned modes">
+            <figcaption>
+              Bootstrap refits show that the first signed residual modes are
+              stable enough to support interpretation.
+            </figcaption>
+          </figure>
+
+          <figure class="figure-frame">
+            <img src="experiments/sparc_nfw_residuals/figures/central_overshoot_distribution.png" alt="Central overshoot diagnostic in the SPARC sample">
+            <figcaption>
+              Independent residual diagnostics supply post hoc interpretation
+              labels, including the central-overshoot split.
+            </figcaption>
+          </figure>
+
+          <figure class="figure-frame">
+            <img src="experiments/sparc_residual_dictionary/figures/coefficient_space.png" alt="Learned residual coefficient space">
+            <figcaption>
+              Learned coefficients align with the independent overshoot
+              diagnostic, linking population modes back to physical residual
+              behavior.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="takeaways">
+          <article class="takeaway">
+            <h3>Clean stat.ML angle</h3>
+            <p>
+              This is dictionary learning for an inverse problem with a
+              structured nuisance baseline. The learning target is not the
+              whole galaxy, but the projected residual field.
+            </p>
+          </article>
+          <article class="takeaway">
+            <h3>Physical humility</h3>
+            <p>
+              The results do not decide between dark matter and modified
+              gravity. They show that leftover rotation-curve geometry is
+              learnable, stable, and diagnostic.
+            </p>
+          </article>
+          <article class="takeaway">
+            <h3>Next extension</h3>
+            <p>
+              The immediate learning upgrade is held-out-galaxy validation:
+              train population modes on some galaxies and predict residual
+              structure in galaxies never used for fitting.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="artifacts">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Artifacts</p>
+            <h2>Papers and repository entry points.</h2>
+          </div>
+          <p class="lead">
+            The public-facing artifacts are the main conference paper and the
+            earlier note sketches. The repository README is the entry point for
+            code, data, and reproducibility details.
+          </p>
+        </div>
+
+        <div class="artifact-grid">
+          <a class="artifact" href="papers/sparc_residual_dictionary_learning/sparc_residual_dictionary_learning_JRLanders.pdf">
+            <span class="type">PDF</span>
+            <h3>Main conference paper</h3>
+            <p>Eight-page stat.ML manuscript with theorem, SPARC experiment, figures, and references.</p>
+          </a>
+
+          <a class="artifact" href="papers/sparc_nfw_residuals/sparc_nfw_residual_of_residual_JRLanders.pdf">
+            <span class="type">PDF note</span>
+            <h3>SPARC residual sketch</h3>
+            <p>Earlier real-data note developing the NFW residual-of-residual diagnostic.</p>
+          </a>
+
+          <a class="artifact" href="papers/nfw_residual_of_residual/nfw_residual_of_residual_JRLanders.pdf">
+            <span class="type">PDF note</span>
+            <h3>NFW residual sketch</h3>
+            <p>Synthetic note isolating the residual-of-residual idea before the SPARC run.</p>
+          </a>
+
+          <a class="artifact" href="papers/geometric_residual_missing_mass/geometric_residual_missing_mass_JRLanders.pdf">
+            <span class="type">PDF note</span>
+            <h3>Geometric residual sketch</h3>
+            <p>Original weak-field geometric-residual framing and warp-search manuscript.</p>
+          </a>
+
+          <a class="artifact" href="README.md">
+            <span class="type">Repository</span>
+            <h3>README</h3>
+            <p>Start here for the code structure, experiment runners, data outputs, and scope notes.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="closing">
+    <div class="wrap closing-inner">
+      <div>
+        <h2>Fit the baseline. Learn what remains.</h2>
+        <p>
+          A compact site for the main SPARC residual dictionary paper and the
+          note sketches that led to it.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="README.md">Repository README</a>
+        <a href="https://github.com/jonland82/geometric-spacetime-residuals">GitHub repo</a>
+        <a href="papers/">Papers</a>
+        <a href="experiments/">Experiments</a>
+        <a href="https://orcid.org/0000-0003-1872-6179">ORCID</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
