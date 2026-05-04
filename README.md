@@ -1,5 +1,7 @@
 # Geometric Spacetime Residuals
 
+**Project site:** <https://jonland82.github.io/geometric-spacetime-residuals/>
+
 This repository contains small reproducible experiments and short papers for a
 geometric-residual framing of the missing-mass problem. The central object is
 the mismatch between the geometry implied by observations and the geometry
