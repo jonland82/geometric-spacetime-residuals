@@ -628,7 +628,20 @@ def save_population_figures(summary: pd.DataFrame) -> None:
     fig.savefig(FIGURES / "population_fit_comparison.png", dpi=180)
     plt.close(fig)
 
-    fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), constrained_layout=True)
+    plt.rcParams.update(
+        {
+            "font.size": 10,
+            "axes.labelsize": 10,
+            "axes.titlesize": 10.5,
+            "xtick.labelsize": 9,
+            "ytick.labelsize": 9,
+            "legend.fontsize": 8.5,
+            "axes.grid": True,
+            "grid.alpha": 0.25,
+        }
+    )
+
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.25), constrained_layout=True)
     ax = axes[0]
     ax.hist(
         plot_frame["inner_gap_mean_norm_after_outer_nfw"],
@@ -638,9 +651,9 @@ def save_population_figures(summary: pd.DataFrame) -> None:
     )
     ax.axvline(0.0, color="#111111", ls="--", lw=1.0)
     ax.axvline(-0.25, color="#D95D39", ls="--", lw=1.0)
-    ax.set_xlabel("mean inner (Delta g_obs - NFW_outer) / inner RMS")
+    ax.set_xlabel("mean inner gap / inner RMS")
     ax.set_ylabel("galaxies")
-    ax.set_title("Inner residual after matching the outer region")
+    ax.set_title("After outer NFW fit")
 
     ax = axes[1]
     ax.scatter(
@@ -656,9 +669,9 @@ def save_population_figures(summary: pd.DataFrame) -> None:
     ax.axhline(0.0, color="#111111", ls="--", lw=1.0)
     ax.axhline(-0.25, color="#D95D39", ls="--", lw=1.0)
     ax.set_xlabel("SPARC Vflat [km/s]")
-    ax.set_ylabel("inner gap norm")
-    ax.set_title("Central overshoot diagnostic by galaxy scale")
-    fig.savefig(FIGURES / "central_overshoot_distribution.png", dpi=180)
+    ax.set_ylabel("mean inner gap / inner RMS")
+    ax.set_title("By galaxy scale")
+    fig.savefig(FIGURES / "central_overshoot_distribution.png", dpi=220)
     plt.close(fig)
 
 

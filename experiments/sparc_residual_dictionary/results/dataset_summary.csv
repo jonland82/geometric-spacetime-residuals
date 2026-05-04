@@ -1,0 +1,3 @@
+target,n_galaxies,n_grid,x_min,x_max,mean_coverage_fraction
+positive_delta_g,131,72,0.25,8.0,0.773960983884648
+signed_nfw_residual_of_residual,131,72,0.25,8.0,0.773960983884648

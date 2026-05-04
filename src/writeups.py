@@ -128,21 +128,21 @@ This note turns the geometric-residual framing of the missing-mass problem into 
 
 The starting point is the distinction between the geometry predicted by observed baryons and the geometry implied by observations. In relativistic language, define the Einstein-tensor geometric residual
 
-\\[
+$$
 \\Delta G_{{\\mu\\nu}}
 =
 G_{{\\mu\\nu}}[g^{{\\rm obs}}]
 -
 G_{{\\mu\\nu}}[g^{{\\rm bar}}].
-\\]
+$$
 
 If the Einstein equation is kept fixed, this residual can be represented as an effective missing stress-energy tensor,
 
-\\[
+$$
 T_{{\\mu\\nu}}^{{\\rm miss}}
 =
 \\frac{{c^4}}{{8\\pi G}}\\Delta G_{{\\mu\\nu}}.
-\\]
+$$
 
 The phrase "effective" matters. A geometric residual can be caused by particle-like dark matter, field-like sources, modified geometry laws, baryonic modeling errors, environmental effects, or observational systematics. The prototype below treats these possibilities as candidate latent physical generators of one observed residual.
 
@@ -150,45 +150,45 @@ The phrase "effective" matters. A geometric residual can be caused by particle-l
 
 For the toy galaxy experiments, circular speed is converted into acceleration by
 
-\\[
+$$
 g(r)=\\frac{{v^2(r)}}{{r}}.
-\\]
+$$
 
 The practical weak-field geometric residual is
 
-\\[
+$$
 \\Delta g(r)
 =
 g_{{\\rm obs}}(r)-g_{{\\rm bar}}(r)
 =
 \\frac{{v_{{\\rm obs}}^2(r)-v_{{\\rm bar}}^2(r)}}{{r}}.
-\\]
+$$
 
 The potential residual also defines an effective density proxy,
 
-\\[
+$$
 \\rho_{{\\rm eff}}(r)
 =
 \\frac{{1}}{{4\\pi G}}\\nabla^2\\Delta\\Phi.
-\\]
+$$
 
 Using a spherical toy proxy,
 
-\\[
+$$
 g(r) = \\frac{{G M(<r)}}{{r^2}},
 \\qquad
 M_{{\\rm eff}}(<r)
 =
 \\frac{{r^2\\Delta g(r)}}{{G}},
-\\]
+$$
 
 and
 
-\\[
+$$
 \\rho_{{\\rm eff}}(r)
 =
 \\frac{{1}}{{4\\pi r^2}}\\frac{{dM_{{\\rm eff}}}}{{dr}}.
-\\]
+$$
 
 This is not a realistic disk-galaxy inversion. It is a controlled spherical proxy for testing how an acceleration residual can be recovered and decomposed.
 
@@ -196,21 +196,21 @@ This is not a realistic disk-galaxy inversion. It is a controlled spherical prox
 
 The inverse problem is to infer one or more latent generators whose induced residual matches observations:
 
-\\[
+$$
 \\Delta G_{{\\mu\\nu}}^{{\\rm obs}}
 \\approx
 \\sum_k \\Delta G_{{\\mu\\nu}}^{{(k)}}.
-\\]
+$$
 
 In this toy reduction, that becomes a search over residual acceleration functions:
 
-\\[
+$$
 \\Delta g(r) \\approx \\sum_k w_k f_k(r,g_{{\\rm bar}},\\rho_{{\\rm bar}},\\nabla\\rho_{{\\rm bar}},\\ldots).
-\\]
+$$
 
 The basis-library fit in this prototype is deliberately modest: it uses nonnegative sparse combinations of NFW-like, cored/isothermal-like, MOND-like, soliton-like, and baryon-coupled radial functions. It is not physics discovery. It is a scaffold for later symbolic regression or differentiable search over covariant structures such as
 
-\\[
+$$
 \\Delta \\mathcal{{E}}_{{\\mu\\nu}}
 =
 F_{{\\mu\\nu}}
@@ -224,27 +224,27 @@ T_{{\\mu\\nu}}^{{\\rm bar}},
 A_\\mu,
 \\ldots
 \\right).
-\\]
+$$
 
 ## Experimental Design
 
 The synthetic baryonic profile is
 
-\\[
+$$
 M_{{\\rm bar}}(<r) = M_b\\left[1-e^{{-r/R_d}}(1+r/R_d)\\right],
-\\]
+$$
 
 with baryonic acceleration
 
-\\[
+$$
 g_{{\\rm bar}}(r)=\\frac{{G M_{{\\rm bar}}(<r)}}{{r^2}}.
-\\]
+$$
 
 Five hidden/residual generators are used: an NFW-like halo, a cored/isothermal-like halo, a MOND-like acceleration residual, a soliton/cored scalar-field-inspired component, and a mixed NFW+MOND component. Gaussian velocity noise is added with a fixed random seed.
 
-The inversion stage recovers \\(\\Delta g\\), \\(M_{{\\rm eff}}\\), and \\(\\rho_{{\\rm eff}}\\) from noisy \\(v_{{\\rm obs}}(r)\\) and known \\(g_{{\\rm bar}}(r)\\). The model-comparison stage fits candidate generators and reports weighted MSE, AIC/BIC-like scores, and simple physical validity checks: positivity of \\(\\Delta g\\), monotonicity of \\(M_{{\\rm eff}}\\), nonnegativity of \\(\\rho_{{\\rm eff}}\\), and absence of strong oscillatory pathologies.
+The inversion stage recovers $\\Delta g$, $M_{{\\rm eff}}$, and $\\rho_{{\\rm eff}}$ from noisy $v_{{\\rm obs}}(r)$ and known $g_{{\\rm bar}}(r)$. The model-comparison stage fits candidate generators and reports weighted MSE, AIC/BIC-like scores, and simple physical validity checks: positivity of $\\Delta g$, monotonicity of $M_{{\\rm eff}}$, nonnegativity of $\\rho_{{\\rm eff}}$, and absence of strong oscillatory pathologies.
 
-The multi-probe experiment adds a conceptual lensing/slip proxy. Dynamics probes the potential \\(\\Phi\\), while lensing responds to \\(\\Phi+\\Psi\\). A particle-like model is assigned \\(\\eta=\\Psi/\\Phi\\approx 1\\), while a toy modified-gravity twin is assigned \\(\\eta(r)\\ne 1\\). This is not physical lensing. It only demonstrates how a second projection can break a rotation-curve degeneracy.
+The multi-probe experiment adds a conceptual lensing/slip proxy. Dynamics probes the potential $\\Phi$, while lensing responds to $\\Phi+\\Psi$. A particle-like model is assigned $\\eta=\\Psi/\\Phi\\approx 1$, while a toy modified-gravity twin is assigned $\\eta(r)\\ne 1$. This is not physical lensing. It only demonstrates how a second projection can break a rotation-curve degeneracy.
 
 ## Results
 
@@ -256,7 +256,7 @@ The multi-probe experiment adds a conceptual lensing/slip proxy. Dynamics probes
 
 ![Effective mass and density](../figures/effective_mass_density.png)
 
-The synthetic inversion recovers the broad geometric residual in all generated cases. Noise is amplified when converting velocity to acceleration and especially when differentiating \\(M_{{\\rm eff}}\\) to estimate \\(\\rho_{{\\rm eff}}\\), which is why the density proxy is the least stable derived quantity.
+The synthetic inversion recovers the broad geometric residual in all generated cases. Noise is amplified when converting velocity to acceleration and especially when differentiating $M_{{\\rm eff}}$ to estimate $\\rho_{{\\rm eff}}$, which is why the density proxy is the least stable derived quantity.
 
 {markdown_table(summary_display, list(summary_display[0].keys()) if summary_display else [])}
 
@@ -297,9 +297,9 @@ This is an AI/symbolic-regression-inspired scaffold: the basis functions are han
 5. Search over physically constrained Lagrangians or field equations instead of only profile templates.
 6. Enforce conservation constraints such as
 
-\\[
+$$
 \\nabla^\\mu T_{{\\mu\\nu}}^{{\\rm eff}}=0.
-\\]
+$$
 
 7. Add priors for positivity, stability, monotonicity, and cosmological consistency.
 8. Use symbolic regression, differentiable programming, and neural operators to propose candidate field equations or effective stress-energy structures.

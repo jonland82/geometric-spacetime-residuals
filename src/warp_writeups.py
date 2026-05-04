@@ -106,13 +106,13 @@ This research note builds a toy computational experiment for exploring the missi
 
 The missing-mass problem can be reframed as a search for geometric perturbations that transform a baryon-predicted metric into an observation-compatible metric:
 
-\\[
+$$
 g_{{\\mu\\nu}}^{{\\rm trial}}
 =
 g_{{\\mu\\nu}}^{{\\rm bar}}
 +
 h_{{\\mu\\nu}}(\\theta).
-\\]
+$$
 
 The question is not initially "which named theory is correct?" The question is more primitive: what kinds of metric perturbations numerically generate the residual, and what effective physical structure would those perturbations imply?
 
@@ -120,36 +120,36 @@ The question is not initially "which named theory is correct?" The question is m
 
 The prototype uses a static weak-field radial ansatz:
 
-\\[
+$$
 ds^2
 =
 -\\left(1+\\frac{{2\\Phi(r)}}{{c^2}}\\right)c^2dt^2
 +
 \\left(1-\\frac{{2\\Psi(r)}}{{c^2}}\\right)
 \\left(dr^2+r^2d\\Omega^2\\right).
-\\]
+$$
 
 The baryonic metric potentials are perturbed as
 
-\\[
+$$
 \\Phi(r)=\\Phi_{{\\rm bar}}(r)+\\delta\\Phi(r;\\theta),
 \\qquad
 \\Psi(r)=\\Psi_{{\\rm bar}}(r)+\\delta\\Psi(r;\\theta).
-\\]
+$$
 
 Rotation curves mostly constrain
 
-\\[
+$$
 v^2(r)=r\\frac{{d\\Phi}}{{dr}},
 \\qquad
 \\Delta g(r)=\\frac{{d}}{{dr}}\\delta\\Phi(r),
-\\]
+$$
 
 while a lensing-like projection is sensitive to a combination closer to
 
-\\[
+$$
 L(r)\\propto \\Phi(r)+\\Psi(r).
-\\]
+$$
 
 The potential zero point is arbitrary in this toy calculation; derivatives and relative profiles carry the information.
 
@@ -157,39 +157,39 @@ The potential zero point is arbitrary in this toy calculation; derivatives and r
 
 The grid search explores direct geometric perturbation families:
 
-\\[
+$$
 \\delta\\Phi(r)=A\\log(1+r/r_0),
-\\]
+$$
 
-\\[
+$$
 \\delta\\Phi(r)=A(r/r_0)^\\alpha,
-\\]
+$$
 
-\\[
+$$
 \\delta\\Phi(r)=A(1-e^{{-r/r_0}}),
 \\qquad
 \\delta\\Phi(r)=A\\frac{{r^n}}{{r^n+r_0^n}},
-\\]
+$$
 
-\\[
+$$
 \\delta\\Phi(r)=A\\exp\\left[-\\frac{{(r-r_c)^2}}{{2\\sigma^2}}\\right],
-\\]
+$$
 
 plus a nonnegative radial basis warp,
 
-\\[
+$$
 \\frac{{d}}{{dr}}\\delta\\Phi(r)
 \\approx
 \\sum_k a_k\\exp\\left[-\\frac{{(r-c_k)^2}}{{2s^2}}\\right],
 \\qquad
 a_k\\ge 0.
-\\]
+$$
 
 The second potential is parameterized by a slip-like relation,
 
-\\[
+$$
 \\delta\\Psi(r)=\\eta(r;\\lambda)\\delta\\Phi(r),
-\\]
+$$
 
 with no-slip, constant-slip, inner-slip, and outer-slip variants.
 
@@ -197,7 +197,7 @@ with no-slip, constant-slip, inner-slip, and outer-slip variants.
 
 Each trial warp is scored by
 
-\\[
+$$
 \\mathcal{{J}}(\\theta)
 =
 \\sum_i
@@ -212,13 +212,13 @@ Each trial warp is scored by
 \\lambda_4 C(\\theta)
 +
 \\lambda_5 P_{{\\rm lens}}.
-\\]
+$$
 
-The path penalty tracks negative residual acceleration, nonmonotone effective mass, negative effective density, and oscillatory behavior. Weak-field validity is tracked using \\(\\max |\\Phi|/c^2\\). The lensing term is a conceptual proxy, not a physical lensing calculation.
+The path penalty tracks negative residual acceleration, nonmonotone effective mass, negative effective density, and oscillatory behavior. Weak-field validity is tracked using $\\max |\\Phi|/c^2$. The lensing term is a conceptual proxy, not a physical lensing calculation.
 
 The effective density proxy is
 
-\\[
+$$
 \\rho_{{\\rm eff}}(r)
 =
 \\frac{{1}}{{4\\pi G r^2}}
@@ -226,35 +226,35 @@ The effective density proxy is
 \\left[
 r^2\\frac{{d}}{{dr}}\\delta\\Phi(r)
 \\right].
-\\]
+$$
 
 ## Numerical Experiments
 
 The baryonic cumulative mass profile is
 
-\\[
+$$
 M_{{\\rm bar}}(<r)
 =
 M_b\\left[1-e^{{-r/R_d}}(1+r/R_d)\\right],
 \\qquad
 g_{{\\rm bar}}(r)=\\frac{{GM_{{\\rm bar}}(<r)}}{{r^2}}.
-\\]
+$$
 
 The synthetic observed curve is built by adding an empirical flat-speed component,
 
-\\[
+$$
 v_{{\\rm obs}}^2(r)
 =
 v_{{\\rm bar}}^2(r)
 +
 \\left[v_f(1-e^{{-r/r_f}})\\right]^2.
-\\]
+$$
 
 This target makes the required outer residual approximately
 
-\\[
+$$
 \\Delta g_{{\\rm target}}(r)\\sim \\frac{{v_f^2}}{{r}},
-\\]
+$$
 
 which is why logarithmic potential warps are expected to be competitive.
 
@@ -268,7 +268,7 @@ The best-ranked trial in this run is **{best_family}** with slip mode **{best_et
 
 ![Warp residual acceleration](../figures/warp_residual_acceleration.png)
 
-The best direct warp reproduces the smooth flat-curve residual without naming a physical source. The important output is not a theory label; it is the shape of \\(\\delta\\Phi\\), its derivative, and the effective density structure implied by the warp.
+The best direct warp reproduces the smooth flat-curve residual without naming a physical source. The important output is not a theory label; it is the shape of $\\delta\\Phi$, its derivative, and the effective density structure implied by the warp.
 
 ### Metric Potentials and Slip
 
@@ -276,13 +276,13 @@ The best direct warp reproduces the smooth flat-curve residual without naming a 
 
 ![Warp lensing proxy](../figures/warp_lensing_proxy.png)
 
-Rotation fixes \\(d\\Phi/dr\\), but it does not uniquely determine \\(\\Psi\\). The slip proxy demonstrates how two perturbations with similar rotation behavior can separate under a second projection.
+Rotation fixes $d\\Phi/dr$, but it does not uniquely determine $\\Psi$. The slip proxy demonstrates how two perturbations with similar rotation behavior can separate under a second projection.
 
 ### Effective Curvature/Density Proxy
 
 ![Warp effective profiles](../figures/warp_effective_profiles.png)
 
-Successful long-range warps imply an extended effective density proxy. In this toy target, the outer flat rotation curve pushes the search toward perturbations whose derivative falls roughly like \\(1/r\\), corresponding to a logarithmic potential over the searched radial range.
+Successful long-range warps imply an extended effective density proxy. In this toy target, the outer flat rotation curve pushes the search toward perturbations whose derivative falls roughly like $1/r$, corresponding to a logarithmic potential over the searched radial range.
 
 ### Parameter Regions
 
@@ -298,7 +298,7 @@ The heatmap shows the region of the logarithmic family that works. The scatter p
 
 ![Warp basis components](../figures/warp_basis_components.png)
 
-The radial basis warp is not a named physical theory; it is an agnostic function approximator for \\(d\\delta\\Phi/dr\\). It provides a useful check on whether a simple analytic warp is missing structure.
+The radial basis warp is not a named physical theory; it is an agnostic function approximator for $d\\delta\\Phi/dr$. It provides a useful check on whether a simple analytic warp is missing structure.
 
 ### Top-Ranked Candidates
 
@@ -314,9 +314,9 @@ The radial basis warp is not a named physical theory; it is an agnostic function
 
 ## Interpretation
 
-The successful warps tend to be smooth and long-range. The flat target curve favors perturbations with \\(d\\delta\\Phi/dr\\sim 1/r\\), so the corresponding potential looks logarithmic across the outer radial range. Saturating and localized bump perturbations usually struggle because their derivatives either decay too quickly or change sign. Power-law perturbations can work when their exponent is small enough to mimic logarithmic growth. The basis warp can approximate the same behavior by combining several positive radial components.
+The successful warps tend to be smooth and long-range. The flat target curve favors perturbations with $d\\delta\\Phi/dr\\sim 1/r$, so the corresponding potential looks logarithmic across the outer radial range. Saturating and localized bump perturbations usually struggle because their derivatives either decay too quickly or change sign. Power-law perturbations can work when their exponent is small enough to mimic logarithmic growth. The basis warp can approximate the same behavior by combining several positive radial components.
 
-The best candidates do not require gravitational slip for the synthetic no-slip lensing proxy used here. However, rotation alone cannot rule out slip-like \\(\\delta\\Psi\\) behavior, which is why multi-probe constraints are central in any more serious extension.
+The best candidates do not require gravitational slip for the synthetic no-slip lensing proxy used here. However, rotation alone cannot rule out slip-like $\\delta\\Psi$ behavior, which is why multi-probe constraints are central in any more serious extension.
 
 ## Limitations
 

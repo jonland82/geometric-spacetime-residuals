@@ -38,15 +38,15 @@ Primary outputs:
 
 Searches directly over weak-field metric perturbations,
 
-\[
+$$
 g_{\mu\nu}^{\rm trial}
 =
 g_{\mu\nu}^{\rm bar}
 +
 h_{\mu\nu}(\theta),
-\]
+$$
 
-using radial perturbations of \(\delta\Phi(r)\) and \(\delta\Psi(r)\), rather
+using radial perturbations of $\delta\Phi(r)$ and $\delta\Psi(r)$, rather
 than starting from named physical theories.
 
 ```bash
@@ -105,12 +105,32 @@ It downloads missing SPARC source tables, fits NFW and cored/isothermal
 residual families, and writes its own results, figures, and paper in the
 experiment folder.
 
+### SPARC Residual Dictionary Learning
+
+Learns population-level residual dictionaries from the SPARC residual profiles
+produced by the NFW residual-of-residual experiment.
+
+```bash
+python experiments/sparc_residual_dictionary/run_sparc_residual_dictionary.py
+```
+
+This experiment is self-contained under:
+
+- `experiments/sparc_residual_dictionary/`
+
+It interpolates primary-quality SPARC residual profiles onto a common
+normalized radius grid, learns nonnegative and signed residual dictionaries,
+evaluates held-out radial-point reconstruction, bootstraps mode stability, and
+writes a Markdown report in the experiment folder.
+
 ## Papers
 
 - `papers/geometric_residual_missing_mass/`: original geometric-residual and
   weak-field warp-search manuscript.
 - `papers/nfw_residual_of_residual/`: synthetic NFW residual-of-residual note.
 - `papers/sparc_nfw_residuals/`: real-data SPARC residual-of-residual note.
+- `papers/sparc_residual_dictionary_learning/`: stat.ML-style conference paper
+  on masked dictionary learning for SPARC residual-of-residual fields.
 
 ## Scope
 

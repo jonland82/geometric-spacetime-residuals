@@ -1,0 +1,6 @@
+{
+  "positive_delta_g_rank": 6,
+  "signed_nfw_residual_of_residual_rank": 6,
+  "positive_delta_g_train_profile_rmse": 0.08949450108579318,
+  "signed_nfw_residual_of_residual_train_profile_rmse": 0.14019907983075217
+}
